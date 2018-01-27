@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float pullForce;
+	public float jumpHeight;
 
     private Rigidbody rb;
+	private int jumpCount = 0;
 
     private Vector3 GetMovementViaInput()
     {
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         PullGameBallIfFire2Pressed();
 
-        if (Input.GetButton("Select"))
+        if (Input.GetButton("Fire1"))
         {
             Debug.Log("Feuer Frei");
         }
@@ -49,5 +51,23 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Feuer Zwei");
         }
+
+		if (Input.GetButton ("Fire3")) {
+			Debug.Log ("Feuer3");
+		}
+
+		if (Input.GetButtonDown ("Jump") && jumpCount < 2) {
+			rb.AddForce (jumpHeight * Vector3.up);
+			jumpCount++;
+		}
     }
+
+	void OnCollisionEnter(Collision collision)
+	{
+		Debug.Log ("onCollison");
+		if (collision.collider.tag == "Stadium") {
+			Debug.Log ("hit rock bottom");
+			jumpCount = 0;
+		}
+	}
 }
