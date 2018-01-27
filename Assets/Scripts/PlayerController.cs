@@ -20,5 +20,13 @@ public class PlayerController : MonoBehaviour {
 		//transform.Translate (Time.deltaTime * movement);
 
 		rb.AddForce (movement * speed);
+
+		if (Input.GetButton ("Select")) {
+			Debug.Log ("Feuer Frei");
+		}
+
+		if (Input.GetButton ("Fire2")) {
+			Debug.Log ("Feuer Zwei");
+		}
 	}
 }
