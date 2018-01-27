@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: c65763bc97715432c9d62e8942cfff37
+  - enabled: 1
+    path: Assets/Scenes/IsometricCamScene.unity
+    guid: aea846f1b97174da6a0045f09226c3e9
