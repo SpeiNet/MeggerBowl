@@ -2,31 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-	public float speed;
-	private Rigidbody rb;
+public class PlayerController : MonoBehaviour
+{
+    public float speed;
+    public float pullForce;
 
-	void Start() {
-		rb = GetComponent<Rigidbody> ();
-	}
+    private Rigidbody rb;
 
-	void FixedUpdate()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+    private Vector3 GetMovementViaInput()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        return new Vector3(moveHorizontal, 0.0f, moveVertical);
+    }
 
-		//transform.Translate (Time.deltaTime * movement);
+    private void PullGameBallIfFire2Pressed()
+    {
+        if (Input.GetButton("Fire2"))
+        {
+            Debug.Log("Space pressed");
+            GameObject gameBall = GameObject.Find("GameBall");
+            Vector3 pullDirection = (transform.position - gameBall.transform.position).normalized;
 
-		rb.AddForce (movement * speed);
+            gameBall.transform.GetComponent<Rigidbody>().velocity += pullDirection * (pullForce * Time.deltaTime);
+        }
+    }
 
-		if (Input.GetButton ("Select")) {
-			Debug.Log ("Feuer Frei");
-		}
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
-		if (Input.GetButton ("Fire2")) {
-			Debug.Log ("Feuer Zwei");
-		}
-	}
+    void FixedUpdate()
+    {
+        rb.AddForce(GetMovementViaInput() * speed);
+
+        PullGameBallIfFire2Pressed();
+
+        if (Input.GetButton("Select"))
+        {
+            Debug.Log("Feuer Frei");
+        }
+
+        if (Input.GetButton("Fire2"))
+        {
+            Debug.Log("Feuer Zwei");
+        }
+    }
 }
