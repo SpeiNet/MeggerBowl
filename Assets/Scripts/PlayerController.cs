@@ -11,10 +11,10 @@ public class PlayerController : MonoBehaviour
     public float pullForce;
 
     [Range(0, 10)]
-	public float jumpHeight;
+    public float jumpHeight;
 
     private Rigidbody rb;
-	private int jumpCount = 0;
+    private int jumpCount = 0;
 
     void Start()
     {
