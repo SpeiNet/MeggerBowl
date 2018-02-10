@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
             jumpCount++;
         }
 
-        if (rb.velocity.y < 0) {
+        if (isPlayerFalling ()) {
             // we are falling
-            rb.AddForce(Vector3.up * Physics.gravity.y * (fallMultiplyer - 1) * Time.deltaTime);
+            rb.AddForce (Vector3.up * Physics.gravity.y * (fallMultiplyer - 1) * Time.deltaTime);
         }
 
         rb.AddForce(GetMovementViaInput() * speed);
@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log ("hit rock bottom");
             jumpCount = 0;
         }
+    }
+
+    private bool isPlayerFalling ()
+    {
+        return rb.velocity.y < 0;
     }
 
     private Vector3 GetMovementViaInput()
